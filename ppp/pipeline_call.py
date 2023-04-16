@@ -32,6 +32,7 @@ def _over_neg_prompt(self, negative_prompt):
 @torch.no_grad()
 def overwrite_call(
     self,
+    image,
     height: Optional[int] = None,
     width: Optional[int] = None,
     num_inference_steps: int = 50,
@@ -48,7 +49,6 @@ def overwrite_call(
     callback: Optional[Callable[[int, int, torch.FloatTensor], None]] = None,
     callback_steps: int = 1,
     cross_attention_kwargs: Optional[Dict[str, Any]] = None,
-    image
 ):
     r"""
     Function invoked when calling the pipeline for generation.
