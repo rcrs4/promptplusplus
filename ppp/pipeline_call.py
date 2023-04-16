@@ -48,6 +48,7 @@ def overwrite_call(
     callback: Optional[Callable[[int, int, torch.FloatTensor], None]] = None,
     callback_steps: int = 1,
     cross_attention_kwargs: Optional[Dict[str, Any]] = None,
+    image
 ):
     r"""
     Function invoked when calling the pipeline for generation.
@@ -156,14 +157,13 @@ def overwrite_call(
     # 5. Prepare latent variables
     num_channels_latents = self.unet.in_channels
     latents = self.prepare_latents(
+        image,
+        timesteps,
         batch_size * num_images_per_prompt,
-        num_channels_latents,
-        height,
-        width,
+        1,
         self.text_encoder.dtype,
         device,
-        generator,
-        latents,
+        generator
     )
 
     # 6. Prepare extra step kwargs. TODO: Logic should ideally just be moved out of the pipeline
